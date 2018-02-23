@@ -1,0 +1,22 @@
+Former notes:
+
+Http request: 
+You need to specify the type of message receiced ( I'm using httpclient ), for my app, I receive json when req success and httperrorresponse when failed, json is default, we need to specify the type =>(err: httperrorresponse).
+
+Changes may not be detected by angular!!:
+For example, if in ur current component, you bind some local vals with some vals encapsulated in some outside structures like service, angular will not detect the changes. You need to realize { OnCheck } with ur own logic.
+
+unsubscribe is always IMPORTANT!
+
+Feb, 23, 2018
+
+My app structure is like 
+back-end: localhost:3000,
+angular localhost:4200,
+user access to angular and angular process user data with api from backend.
+For SPA like this, we can't directly use sessions or cookies like authentication. We have to build this by ourselves.
+Try something including { jwt, "localstorage", httpinterceptor } today.
+
+Things confused:
+NgModel binds dfferent things in different element ???
+host binding and host listener ???
