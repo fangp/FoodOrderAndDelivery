@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+      <h3><a routerLink="../login">Login</a> or Signup</h3>
+      <hr>
+    </div>
+  </div>
+      <form (ngSubmit)="OnSubmit(f)" #f="ngForm">
+          <div id="user-data">
+            <div class="row">
+              <div class="col-xs-6 col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="username"
+                      class="form-control"
+                      placeholder="username"
+                      ngModel
+                      name="username"
+                      required
+                      #username="ngModel"
+                    >
+                    <span class="text-danger" *ngIf="!username.valid && username.touched">username is required</span>
+                  </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="password"
+                    ngModel
+                    name="password"
+                    required
+                    #password="ngModel"
+                  >
+                  <span class="text-danger" *ngIf="!password.valid && password.touched">password is required</span>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="passwordconf"
+                    class="form-control"
+                    placeholder="password confirmation"
+                    ngModel
+                    name="passwordconf"
+                    required
+                    #passwordconf="ngModel"
+                  >
+                  <span class="text-danger" *ngIf="!passwordconf.valid && passwordconf.touched">password confirmation is required</span>
+                  <span class="text-danger" *ngIf="passwordconf.valid
+                                                  && password.value!=passwordconf.value
+                                                  && passwordconf.touched">
+                    password doesn't match</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+                <input
+                  type="text"
+                  id="address"
+                  class="form-control"
+                  placeholder="address"
+                  name="address"
+                  ngModel
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-2">
+                <p class="text-capitalize">please choose a role:</p>
+                <div class="radio" *ngFor="let role of roles">
+                  <label>
+                    <input
+                      type="radio"
+                      name="type"
+                      ngModel
+                      [value]="role"
+                    >{{ role }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+              <p class="text-danger">{{ WarningMsg }}</p>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+            <hr>
+            <button class="btn btn-primary" [disabled]="!f.valid" type="submit">Signup</button>
+          </div>
+        </div>
+      </form>
+
+</div>
+
+
+
+
