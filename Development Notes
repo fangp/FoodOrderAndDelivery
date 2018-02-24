@@ -16,6 +16,10 @@ angular localhost:4200,
 user access to angular and angular process user data with api from backend.
 For SPA like this, we can't directly use sessions or cookies like authentication. We have to build this by ourselves.
 Try something including { jwt, "localstorage", httpinterceptor } today.
+review: [forget to add 'secret' when calling jsonwebtoken.verify, idiot!!!!!read doc carefully!!]
+update: [This way works!]
+
+
 
 Things confused:
 NgModel binds dfferent things in different element ???
