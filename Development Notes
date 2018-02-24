@@ -8,6 +8,8 @@ For example, if in ur current component, you bind some local vals with some vals
 
 unsubscribe is always IMPORTANT!
 
+Cross origin request need extra support in Node.js (add headers in app.js).
+
 Feb, 23, 2018
 
 My app structure is like 
