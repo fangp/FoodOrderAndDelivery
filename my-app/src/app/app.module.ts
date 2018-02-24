@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { SignUpComponent } from './user-module/sign-up/sign-up.component';
 import { user } from '../models/user.model';
 import { UserService } from './user.service';
 import {DropdownDirective} from "./nav/dropdown.directive";
+import {JwtInterceptor} from "./jwtInterceptor.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -48,7 +49,12 @@ const appRoutes: Routes = [
   ],
   providers: [
               user,
-              UserService
+              UserService,
+              {
+                provide: HTTP_INTERCEPTORS,
+                useClass: JwtInterceptor,
+                multi: true
+              }
               ],
   bootstrap: [AppComponent]
 })

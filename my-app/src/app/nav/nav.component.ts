@@ -14,11 +14,10 @@ export class NavComponent implements OnInit, DoCheck {
 
   LoggedIn = false;
   username = "";
-  logout: Subscription;
   check: Subscription;
   constructor(private UserService: UserService,
               private user:user,
-              private router: Router) {
+              ) {
   }
 
   ngOnInit() {
@@ -56,19 +55,7 @@ export class NavComponent implements OnInit, DoCheck {
   }
 
   OnLogout(){
-    this.logout = this.UserService.logout().subscribe(
-      () =>{
-        this.LogoutHandler();
-      }
-    )
-  }
-
-  LogoutHandler(){
-    this.user = new user();
-    this.UserService.UserLogout;
-    console.log(user);
-    this.logout.unsubscribe();
-    this.router.navigate([""]);
+    localStorage.removeItem("currentUser");
   }
 
 }

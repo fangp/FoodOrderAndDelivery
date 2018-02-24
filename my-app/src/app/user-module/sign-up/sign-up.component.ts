@@ -47,10 +47,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
     )
   }
   DataHandler(data){
-    if(data.status === 200) {
-      this.UserService.LoggedIn = true;
-      this.router.navigate([""]);
+    if(data.token){
+      localStorage.setItem("currentUser", data.token);
     }
+    this.UserService.LoggedIn = true;
+    this.router.navigate([""]);
   }
   ErrHandler(err: HttpErrorResponse){
     this.WarningMsg = err.error.message;

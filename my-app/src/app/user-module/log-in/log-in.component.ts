@@ -43,7 +43,10 @@ export class LogInComponent implements OnInit, OnDestroy {
     )
   }
   DataHandler(data) {
-    this.user.update(data);
+    this.user.update(data.user);
+    if(data.token){
+      localStorage.setItem("currentUser", data.token);
+    }
     this.UserService.UserLogin();
     this.router.navigate([""]);
   }
