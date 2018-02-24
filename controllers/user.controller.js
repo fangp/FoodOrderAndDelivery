@@ -26,7 +26,7 @@ exports.signup = async function(req, res){
 
     try{
         var user = await User.create(userdata)
-        var token = jwt.sign({user: user.username}, "a secret", {
+        var token = jwt.sign({username: user.username}, 'a secret', {
             expiresInMinutes: 1440
         });
         return res.status(200).json({status: 200, message: "signup success", token: token})
@@ -46,7 +46,7 @@ exports.login = async function(req, res){
         await User.authenticate(username, password, function (err, user) {
             if(err)
                 return res.status(422).json({status: 422, message: err.message});
-            var token = jwt.sign({user: user.username}, "a secret", {
+            var token = jwt.sign({username: user.username}, "a secret", {
                 expiresIn: 86400
             });
             var data = {
@@ -63,17 +63,36 @@ exports.login = async function(req, res){
 }
 
 exports.check = function(req, res){
+    console.log("check");
+    var token = req.get('x-access-token');
+    if(token){
+        try{
+            jwt.verify(token, 'a secret', function(err, decoded){
+                if(err)
+                    return res.status(401).json({status: 401, message:"Invalid token"});
+                else{
+                    User.findOne({username: decoded.username}, function(err, user){
+                        if(err)
+                            return res.status(401).json({status: 401, message:"No such user"});
+                        else{
+                            var data = {
+                                username: user.username,
+                                address: user.address
+                            }
+                            return res.status(200).json({status: 200, user: data, message: "user has been logged in"});
+                        }
 
+                    });
+                }
+            });
+        }
+        catch(e){
+            console.log(e);
+        }
+
+    }
+    else
+        return res.status(401).json({status: 401, message:"No token provided"});
 }
-// exports.logout = async function(req, res){
-//     console.log(req.session.userId+" log out!");
-//     var token = req.headers['x-access-token'];
-//     if(token){
-//
-//     }
-//     else{
-//         return res.status(422).json({status: 422, message: "Wrong Status"});
-//     }
-// }
 
 

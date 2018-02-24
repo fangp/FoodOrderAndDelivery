@@ -33,6 +33,7 @@ export class NavComponent implements OnInit, DoCheck {
   }
 
   DataHanlder(data){
+    console.log(data)
     this.user.update(data.user)
     this.UserService.UserLogin();
     this.LoggedIn = true;
@@ -56,6 +57,9 @@ export class NavComponent implements OnInit, DoCheck {
 
   OnLogout(){
     localStorage.removeItem("currentUser");
+    this.username = "";
+    this.user.username = "";
+    this.UserService.UserLogout();
   }
 
 }

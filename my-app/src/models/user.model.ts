@@ -21,7 +21,7 @@ export class user{
     }
   }
   getUsername(){
-    return this.username
+    return this.username==null?"":this.username;
   }
   update(user){
     if(user._id)
