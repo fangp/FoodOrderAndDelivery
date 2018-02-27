@@ -12,6 +12,9 @@ export class UserService{
   constructor( private http: HttpClient,
                private user: user
   ){}
+  getStatus(){
+    return this.LoggedIn;
+  }
   UserLogin(){
     this.LoggedIn = true;
   }

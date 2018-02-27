@@ -1,0 +1,8 @@
+<div class="list-group-item clearfix" style="cursor: pointer;">
+  <h4>Order Status: <span appOrderStatus [status]="order.status">{{ order.status }}</span></h4>
+  <hr>
+  <p><strong>Description</strong><small>:{{ order.description }}</small></p>
+  <p><strong class="font-weight-bold">Address</strong><small>: {{ order.address }}</small></p>
+  <p><strong class="font-weight-bold">Contact</strong><small>: {{ order.contact }}</small></p>
+  <p><strong class="font-weight-bold">Driver</strong><small>: {{ order.driver }}</small></p>
+</div>

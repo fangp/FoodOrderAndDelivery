@@ -9,7 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { DeliveryComponent } from './delivery/delivery.component';
-import { OrderStatusComponent } from './order-status/order-status.component';
+import { OrderStatusComponent } from './order/order-status/order-status.component';
 import { DeliveryStatusComponent } from './delivery-status/delivery-status.component';
 import { LogInComponent } from './user-module/log-in/log-in.component';
 import { SignUpComponent } from './user-module/sign-up/sign-up.component';
@@ -18,6 +18,8 @@ import { user } from '../models/user.model';
 import { UserService } from './user.service';
 import {DropdownDirective} from "./nav/dropdown.directive";
 import {JwtInterceptor} from "./jwtInterceptor.service";
+import { OrderEntryComponent } from './order/order-status/order-entry/order-entry.component';
+import { OrderStatusDirective } from './order/order-status/order-entry/order-status.directive';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -39,7 +41,9 @@ const appRoutes: Routes = [
     DeliveryStatusComponent,
     LogInComponent,
     SignUpComponent,
-    DropdownDirective
+    DropdownDirective,
+    OrderEntryComponent,
+    OrderStatusDirective
   ],
   imports: [
     BrowserModule,

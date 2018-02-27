@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if(this.UserService.LoggedIn)
+    if(this.UserService.getStatus())
       this.router.navigate([""])
   }
 
@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if(data.token){
       localStorage.setItem("currentUser", data.token);
     }
-    this.UserService.LoggedIn = true;
+    this.UserService.UserLogin;
     this.router.navigate([""]);
   }
   ErrHandler(err: HttpErrorResponse){

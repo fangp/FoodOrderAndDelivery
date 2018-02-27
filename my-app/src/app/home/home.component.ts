@@ -14,12 +14,12 @@ export class HomeComponent implements OnInit, DoCheck {
   constructor(private UserService: UserService,
               private user: user
               ) {
-    this.LoggedIn = UserService.LoggedIn
+    this.LoggedIn = UserService.getStatus();
   }
 
   ngOnInit() {
-    this.username = this.user.username
-    this.LoggedIn = this.UserService.LoggedIn
+    this.username = this.user.username;
+    this.LoggedIn = this.UserService.getStatus();
   }
 
   ngDoCheck(){
@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit, DoCheck {
       this.username = this.user.username
     else if(!this.user.username)
       this.username = "";
-    if(this.LoggedIn!=this.UserService.LoggedIn)
-      this.LoggedIn = this.UserService.LoggedIn;
+    if(this.LoggedIn!=this.UserService.getStatus())
+      this.LoggedIn = this.UserService.getStatus();
   }
 
 }

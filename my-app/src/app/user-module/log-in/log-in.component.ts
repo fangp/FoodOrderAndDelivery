@@ -25,7 +25,7 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if(this.UserService.LoggedIn)
+    if(this.UserService.getStatus())
       this.router.navigate([""])
   }
 

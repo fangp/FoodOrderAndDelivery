@@ -51,8 +51,8 @@ export class NavComponent implements OnInit, DoCheck {
   ngDoCheck(){
     if(this.username!=this.user.getUsername())
       this.username = this.user.getUsername()
-    if(this.LoggedIn!=this.UserService.LoggedIn)
-      this.LoggedIn = this.UserService.LoggedIn;
+    if(this.LoggedIn!=this.UserService.getStatus())
+      this.LoggedIn = this.UserService.getStatus();
   }
 
   OnLogout(){
