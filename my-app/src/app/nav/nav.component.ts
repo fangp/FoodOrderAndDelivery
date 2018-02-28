@@ -3,7 +3,7 @@ import { UserService } from "../user.service";
 import {user} from "../../models/user.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Subscription} from "rxjs/Subscription";
-import {Router} from "@angular/router";
+import "rxjs/add/operator/take"
 
 @Component({
   selector: 'app-nav',
@@ -14,6 +14,7 @@ export class NavComponent implements OnInit, DoCheck {
 
   LoggedIn = false;
   username = "";
+  type = "";
   check: Subscription;
   constructor(private UserService: UserService,
               private user:user,
@@ -21,7 +22,7 @@ export class NavComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.check = this.UserService.check().subscribe(
+    this.check = this.UserService.check().take(1).subscribe(
       (data) =>{
         this.DataHanlder(data)
       },
@@ -37,11 +38,10 @@ export class NavComponent implements OnInit, DoCheck {
     this.user.update(data.user)
     this.UserService.UserLogin();
     this.LoggedIn = true;
-    this.check.unsubscribe();
   }
 
   ErrHandler(err: HttpErrorResponse){
-    this.check.unsubscribe();
+
   }
   // ngOnChanges(){
   //   this.username = this.user.getUsername();
@@ -50,7 +50,9 @@ export class NavComponent implements OnInit, DoCheck {
   // }
   ngDoCheck(){
     if(this.username!=this.user.getUsername())
-      this.username = this.user.getUsername()
+      this.username = this.user.getUsername();
+    if(this.type!=this.user.getUserType())
+      this.type = this.user.getUserType();
     if(this.LoggedIn!=this.UserService.getStatus())
       this.LoggedIn = this.UserService.getStatus();
   }
@@ -58,6 +60,7 @@ export class NavComponent implements OnInit, DoCheck {
   OnLogout(){
     localStorage.removeItem("currentUser");
     this.username = "";
+    this.type = "";
     this.UserService.UserLogout();
   }
 

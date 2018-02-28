@@ -9,6 +9,7 @@ let jwt = require('jsonwebtoken');
 /* GET users listing. */
 router.use(function (req, res, next) {
     let token = req.get('x-access-token');
+    //console.log(token);
     if(token){
             jwt.verify(token, 'a secret', function(err, decoded) {
                 if (err){

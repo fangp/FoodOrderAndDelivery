@@ -3,26 +3,32 @@ import {user} from "../../../models/user.model";
 import {NgForm} from "@angular/forms";
 import {OrderService} from "../../order.service";
 import {order} from "../../../models/order.model";
+import {UserService} from "../../user.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-order-place',
-  templateUrl: './order-place.component.html',
-  styleUrls: ['./order-place.component.css']
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.css']
 })
-export class OrderPlaceComponent implements OnInit {
+export class OrderComponent implements OnInit {
   @ViewChild('f') orderForm: NgForm;
   username = "";
   WarningMsg = "";
   constructor(private user:user,
-              private OrderService: OrderService) { }
+              private OrderService: OrderService,
+              private UserService: UserService,
+              private router: Router) {
+    if(!UserService.getStatus())
+      router.navigate([""])
+  }
 
   ngOnInit() {
     this.username = this.user.getUsername();
   }
 
   OnSubmit(){
-    console.log(1);
-    console.log(this.orderForm);
+    //console.log(1);
     let order: order = {
       username: this.orderForm.value.username,
       description:this.orderForm.value.description,
@@ -30,18 +36,20 @@ export class OrderPlaceComponent implements OnInit {
       contact:this.orderForm.value.contact,
       status: "waiting"
     };
-    this.OrderService.placeOrder(order).take(1).subscribe(
+    this.OrderService.placeOrder(order).first().subscribe(
       ()=>{
-        this.OrderService.addToCurrentOders(order);
+        return this.OrderService.addToCurrentOders(order);
       },
       ()=>{
-        this.WarningMsg = "errors!"
+        console.log("errors");
+        return this.WarningMsg = "errors!"
       }
     );
   }
 
   getDefault(){
     var userdata = this.user.getOrderInfo();
+    this.WarningMsg = "";
     this.orderForm.form.patchValue({
       address: userdata.address,
       contact: userdata.contact
@@ -49,6 +57,7 @@ export class OrderPlaceComponent implements OnInit {
   }
 
   Reset(){
+    this.WarningMsg = "";
     this.orderForm.form.patchValue({
       description: "",
       address: "",

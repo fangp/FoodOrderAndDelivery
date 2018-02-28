@@ -7,6 +7,9 @@ export class user{
   private type: string;
   private contact: string;
 
+  getUserType(){
+    return this.type;
+  }
   getUserInfo(){
     return{
       username: this.username,

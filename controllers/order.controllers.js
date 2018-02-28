@@ -55,7 +55,7 @@ exports.add = function(req, res){
     }
     let userorder = {
             description: req.body.description,
-            user: req.decoded.username,
+            username: req.decoded.username,
             driver: "",
             address: req.body.address,
             contact: req.body.contact,

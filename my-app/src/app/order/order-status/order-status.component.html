@@ -1,15 +1,18 @@
- <div class="col-md-6 col-sm-12">
-   <div class="col-sm-8 col-centered">
-     <h3 class="text-center">Order Status
-       <button (click)="OnRefresh()"
-               style="background-color: Transparent; border: none"
-               class="glyphicon glyphicon-refresh">
-       </button>
-     </h3>
-     <br>
-     <app-order-entry *ngFor="let order of orders; let i = index"
-                      [order]="order"
-     >
-     </app-order-entry>
-   </div>
- </div>
+<div class="container">
+  <div class="col-md-6 col-sm-12">
+    <div class="col-sm-8 col-centered">
+      <h3 class="text-center">Order Status
+        <button (click)="OnRefresh()"
+                style="background-color: Transparent; border: none"
+                class="glyphicon glyphicon-refresh">
+        </button>
+      </h3>
+      <br>
+      <app-order-entry *ngFor="let order of orders; let i = index"
+                       [order]="order"
+      >
+      </app-order-entry>
+    </div>
+  </div>
+</div>
+

@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor{
           'x-access-token': currentUser
         }
       });
-      //console.log(request.headers.get('x-access-token'))
+      console.log(request.headers.get('x-access-token'))
     }
 
     return next.handle(request);
