@@ -18,14 +18,14 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.username = this.user.username;
+    this.username = this.user.getUsername();
     this.LoggedIn = this.UserService.getStatus();
   }
 
   ngDoCheck(){
-    if(this.user.username&&this.username!=this.user.username)
-      this.username = this.user.username
-    else if(!this.user.username)
+    if(this.user.getUsername()&&this.username!=this.user.getUsername())
+      this.username = this.user.getUsername();
+    else if(!this.user.getUsername())
       this.username = "";
     if(this.LoggedIn!=this.UserService.getStatus())
       this.LoggedIn = this.UserService.getStatus();

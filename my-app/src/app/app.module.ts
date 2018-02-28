@@ -20,6 +20,8 @@ import {DropdownDirective} from "./nav/dropdown.directive";
 import {JwtInterceptor} from "./jwtInterceptor.service";
 import { OrderEntryComponent } from './order/order-status/order-entry/order-entry.component';
 import { OrderStatusDirective } from './order/order-status/order-entry/order-status.directive';
+import { OrderPlaceComponent } from './order/order-place/order-place.component';
+import {OrderService} from "./order.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     SignUpComponent,
     DropdownDirective,
     OrderEntryComponent,
-    OrderStatusDirective
+    OrderStatusDirective,
+    OrderPlaceComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ const appRoutes: Routes = [
   providers: [
               user,
               UserService,
+              OrderService,
               {
                 provide: HTTP_INTERCEPTORS,
                 useClass: JwtInterceptor,

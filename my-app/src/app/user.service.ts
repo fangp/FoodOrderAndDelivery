@@ -20,6 +20,7 @@ export class UserService{
   }
   UserLogout(){
     this.LoggedIn = false;
+    this.user.clear();
   }
   signup():Observable<any>{
     return this.http.post(this.server + '/signup', this.user.getSignupData())

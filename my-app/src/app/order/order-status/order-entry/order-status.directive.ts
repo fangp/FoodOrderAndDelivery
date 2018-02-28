@@ -11,9 +11,9 @@ export class OrderStatusDirective implements OnInit{
 
   ngOnInit(){
     if(this.status == "waiting")
-      this.color = "red"
+      this.color = "red";
     if(this.status == "delivering")
-      this.color = "blue"
+      this.color = "blue";
     if(this.status == "finished")
       this.color = "green";
   }

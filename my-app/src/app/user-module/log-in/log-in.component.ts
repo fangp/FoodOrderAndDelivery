@@ -4,20 +4,21 @@ import {UserService} from "../../user.service";
 import {user} from "../../../models/user.model";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/take'
 import {Subscription} from "rxjs/Subscription";
+import {role} from "../../../models/role.model";
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent implements OnInit, OnDestroy {
+export class LogInComponent implements OnInit {
 
   //@ViewChild("f") form:NgForm
 
+  roles = role.roles;
   WarningMsg = "";
-  login: Subscription;
   constructor(private UserService: UserService,
               private user: user,
               private router: Router
@@ -33,7 +34,7 @@ export class LogInComponent implements OnInit, OnDestroy {
     //console.log(form.value)
     this.user.update(form.value);
     //form.form.controls.username.invalid
-    this.login = this.UserService.login().subscribe(
+    this.UserService.login().take(1).subscribe(
       (data) =>{
         this.DataHandler(data)
       },
@@ -52,11 +53,6 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
   ErrHandler(err: HttpErrorResponse){
     this.WarningMsg = err.error.message;
-  }
-
-  ngOnDestroy(){
-    if(this.login)
-      this.login.unsubscribe();
   }
 
 }

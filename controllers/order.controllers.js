@@ -1,36 +1,25 @@
-var Order = require('../model/orders.js');
+let Order = require('../model/orders.js');
+let User = require('../model/users');
 
 exports.check = async function(req, res){
-    if(!req.session)
-        return res.status(422).json({status: 422, message: "please login"});
-    var type = req.session.type;
-    var condition = {};
-    if(type == "1"){ //normal use
-        console.log("normal user: "+req.session.username+" check orders");
-        var username = req.session.username;
-        condition = {
-            user: username
-        };
-    }
-    else if(type == "2"){// driver
-        console.log("driver: "+req.session.username+" check orders");
-        var driver = "";
-        condition = {
-            driver: driver
-        };
-    }
-    else if(type == "admin"){// admin
-        console.log("admin: "+req.session.username+" check orders");
+    let username;
+    if(req.decoded){
+        username = req.decoded.username;
     }
     else{
-        return res.status(422).json({status: 422, message: "please login"});
+        return res.status(401).json({status: 401, message: "please log in"});
     }
+    let condition = {
+        username: username
+    };
 
     try{
-        var order = Order.find(condition);
-        return res.status(201).json({status: 201, data: order, message:"success"});
+        let AllOrder = await Order.find(condition);
+        //console.log(AllOrder);
+        return res.status(201).json({status: 201, orderdata: AllOrder, message:"success"});
     }
     catch(e){
+        console.log(e);
         return res.status(400).json({status:400, message: e.message});
     }
 }
@@ -61,20 +50,20 @@ exports.delete = async function(req, res){
 }
 
 exports.add = function(req, res){
-    if(!req.session)
-        return res.status(422).json({status: 422, message: "please login"});
-    var username = req.session.username;
-    var date = new Date();
-    var description = req.body.description;
-    var userorder = {
-            description: description,
-            user: username,
+    if(!req.decoded){
+        return res.status(401).json({status: 401, message: "please log in"});
+    }
+    let userorder = {
+            description: req.body.description,
+            user: req.decoded.username,
             driver: "",
-            date: date
+            address: req.body.address,
+            contact: req.body.contact,
+            date: new Date()
         };
     Order.create(userorder, function (err, order) {
         if(err){
-            return res.status(400).json({status:400, message:err.message});
+            return res.status(401).json({status:401, message:err.message});
         }
         else{
             return res.status(200).json({status:200, message:"success"});

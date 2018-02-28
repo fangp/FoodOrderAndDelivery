@@ -6,6 +6,7 @@ import {user} from "../../../models/user.model";
 import {UserService} from "../../user.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Subscription} from "rxjs/Subscription";
+import {role} from "../../../models/role.model";
 
 @Component({
   selector: 'app-sign-up',
@@ -14,12 +15,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class SignUpComponent implements OnInit, OnDestroy {
 
-  roles = [
-    "customer",
-    "dirver",
-    "both",
-    "other"
-  ]
+  roles = role.roles;
   WarningMsg = "";
   signup: Subscription;
   constructor(private user: user,
@@ -34,14 +30,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   OnSubmit(form: NgForm){
-    this.user.update(form.value)
+    this.user.update(form.value);
     this.signup = this.UserService.signup().subscribe(
       (data) => {
-        console.log(data)
+        console.log(data);
         this.DataHandler(data)
       },
       (err) =>{
-        console.log(err)
+        console.log(err);
         this.ErrHandler(err)
       }
     )
@@ -50,7 +46,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if(data.token){
       localStorage.setItem("currentUser", data.token);
     }
-    this.UserService.UserLogin;
+    this.UserService.UserLogin();
     this.router.navigate([""]);
   }
   ErrHandler(err: HttpErrorResponse){

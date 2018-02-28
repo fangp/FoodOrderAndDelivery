@@ -36,6 +36,17 @@
             <span class="text-danger" *ngIf="!password.valid && password.touched">password is required</span>
           </div>
         </div>
+        <p class="text-capitalize">please choose a role:</p>
+        <div class="radio" *ngFor="let role of roles">
+          <label>
+            <input
+              type="radio"
+              name="type"
+              ngModel
+              [value]="role"
+            >{{ role }}
+          </label>
+        </div>
         <div class="row">
           <div class="col-xs-6 col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-2">
             <p class="text-danger">{{ WarningMsg }}</p>

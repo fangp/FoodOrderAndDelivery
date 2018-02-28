@@ -58,7 +58,6 @@ export class NavComponent implements OnInit, DoCheck {
   OnLogout(){
     localStorage.removeItem("currentUser");
     this.username = "";
-    this.user.username = "";
     this.UserService.UserLogout();
   }
 

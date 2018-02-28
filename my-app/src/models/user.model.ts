@@ -1,10 +1,12 @@
 export class user{
-  _id: string;
-  username: string;
-  password: string;
-  passwordconf: string;
-  address: string;
-  type: string;
+  private _id: string;
+  private username: string;
+  private password: string;
+  private passwordconf: string;
+  private address: string;
+  private type: string;
+  private contact: string;
+
   getUserInfo(){
     return{
       username: this.username,
@@ -20,8 +22,17 @@ export class user{
       type: this.type
     }
   }
+  getOrderInfo(){
+    return {
+      address: this.address,
+      contact: this.contact
+    }
+  }
   getUsername(){
     return this.username==null?"":this.username;
+  }
+  clear(){
+    this.username = '';
   }
   update(user){
     if(user._id)

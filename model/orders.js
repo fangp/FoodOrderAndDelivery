@@ -4,8 +4,9 @@ var OrderSchema = new mongoose.Schema({
     description: {type: String, required: true},
     user: {type: String, required: true},
     driver: {type: String},
-    address: {type: String, required: true},
-    date: {type: String, required: true}
+    address: {type: String},
+    contact: {type: String, required: true},
+    date: {type: String}
 });
 
 var Order = mongoose.model('Order', OrderSchema);
