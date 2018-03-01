@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {DeliveryService} from "../../delivery.service";
+import {order} from "../../../models/order.model";
 
 @Component({
   selector: 'app-delivery',
@@ -6,44 +8,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./delivery.component.css']
 })
 export class DeliveryComponent implements OnInit {
-  origin_orders = [
-    {
-      username:"hah",
-      description: "1",
-      contact: "22222",
-      address: "33"
-    },
-    {
-      username:"ggg",
-      description: "1",
-      contact: "21",
-      address: "32222"
-    }
-  ];
+
   types = [
     'username',
     'description',
     'address',
     'contact'
   ];
-  orders = [];
+  orders: order[] = [];
   condition:string;
   selectedType:string = 'description';
-  constructor() { }
+  constructor(private DeliveryService: DeliveryService) { }
 
   ngOnInit() {
-    this.orders = this.origin_orders;
+    this.orders = this.DeliveryService.getCurrentOrders();
   }
 
   OnChange(){
     //console.log()
-    this.orders = this.origin_orders
+    this.orders = this.DeliveryService.getCurrentOrders()
                         .filter((ele)=>{return String(ele[this.selectedType])
                           .indexOf(this.condition)>=0});
   }
 
   OnRefresh(){
-
+    this.DeliveryService.updateCurrentOrders();
+    this.orders = this.DeliveryService.getCurrentOrders();
+    this.condition = "";
+    this.selectedType = 'description';
   }
 
 }

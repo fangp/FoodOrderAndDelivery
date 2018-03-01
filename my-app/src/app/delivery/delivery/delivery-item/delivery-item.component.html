@@ -17,6 +17,7 @@
     </div>
   </div>
   <div class="row text-center" *ngIf="selected">
+    <p class="text-danger">{{ WarningMsg }}</p>
     <br>
     <button class="btn btn-success" (click)="OnClick()">pick up this order</button>
   </div>

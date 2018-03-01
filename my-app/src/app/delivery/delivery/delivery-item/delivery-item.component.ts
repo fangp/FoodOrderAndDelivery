@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
+import {DeliveryService} from "../../../delivery.service";
 
 @Component({
   selector: 'app-delivery-item',
@@ -9,9 +10,10 @@ import {Router} from "@angular/router";
 export class DeliveryItemComponent implements OnInit {
   @Input() order;
   @Input() index;
-
+  WarningMsg:string = "";
   selected = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private DeliveryService: DeliveryService) { }
 
   ngOnInit() {
   }
@@ -23,6 +25,12 @@ export class DeliveryItemComponent implements OnInit {
     this.selected = false;
   }
   OnClick(){
-
+    this.DeliveryService.pickupOrder(this.order, this.MsgHandler);
+  }
+  MsgHandler(msg: string){
+    if(msg == "success")
+      this.router.navigate(["/delivery-status"]);
+    else
+      this.WarningMsg = msg;
   }
 }
