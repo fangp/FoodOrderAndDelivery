@@ -1,0 +1,23 @@
+<li class="list-group-item"
+    style="cursor: pointer;"
+    appDeliveryItem
+    (selected)="OnSelected()"
+    (unselected)="OnUnSelected()"
+    >
+  <div class="list-group-item-heading"><strong>Username</strong>: {{ order.username }}</div>
+  <div class="row col-xs-offset-0">
+    <strong>Description</strong><small>:{{ order.description }}</small>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <strong>Address</strong><small>: {{ order.address }}</small>
+    </div>
+    <div>
+      <strong>Contact</strong><small>: {{ order.contact }}</small>
+    </div>
+  </div>
+  <div class="row text-center" *ngIf="selected">
+    <br>
+    <button class="btn btn-success" (click)="OnClick()">pick up this order</button>
+  </div>
+</li>

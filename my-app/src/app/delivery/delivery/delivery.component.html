@@ -1,0 +1,22 @@
+<div class="container">
+  <h3 class="text-center">Check Orders
+    <button (click)="OnRefresh()"
+            style="background-color: Transparent; border: none"
+            class="glyphicon glyphicon-refresh">
+    </button>
+  </h3>
+  <div class="text-center">
+    <label for="search">filter: </label>
+    <input id="search" placeholder="search" type="text" [(ngModel)]="condition" (ngModelChange)="OnChange()">
+    <select [(ngModel)]="selectedType">
+      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  <hr>
+  <ul class="col-sm-6 col-centered">
+    <app-delivery-item *ngFor="let order of orders; let i = index"
+                       [order] = "order"
+                       [index] = "i"
+    ></app-delivery-item>
+  </ul>
+</div>

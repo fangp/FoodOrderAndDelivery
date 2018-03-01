@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order/order.component';
-import { DeliveryComponent } from './delivery/delivery.component';
+import { DeliveryComponent } from './delivery/delivery/delivery.component';
 import { OrderStatusComponent } from './order/order-status/order-status.component';
-import { DeliveryStatusComponent } from './delivery-status/delivery-status.component';
+import { DeliveryStatusComponent } from './delivery/delivery-status/delivery-status.component';
 import { LogInComponent } from './user-module/log-in/log-in.component';
 import { SignUpComponent } from './user-module/sign-up/sign-up.component';
 
@@ -21,6 +21,9 @@ import {JwtInterceptor} from "./jwtInterceptor.service";
 import { OrderEntryComponent } from './order/order-status/order-entry/order-entry.component';
 import { OrderStatusDirective } from './order/order-status/order-entry/order-status.directive';
 import {OrderService} from "./order.service";
+import { DeliveryItemComponent } from './delivery/delivery/delivery-item/delivery-item.component';
+import { DeliveryItemDirective } from './delivery/delivery/delivery-item/delivery-item.directive';
+import {DeliveryService} from "./delivery.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -46,7 +49,9 @@ const appRoutes: Routes = [
     SignUpComponent,
     DropdownDirective,
     OrderEntryComponent,
-    OrderStatusDirective
+    OrderStatusDirective,
+    DeliveryItemComponent,
+    DeliveryItemDirective
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,7 @@ const appRoutes: Routes = [
               user,
               UserService,
               OrderService,
+              DeliveryService,
               {
                 provide: HTTP_INTERCEPTORS,
                 useClass: JwtInterceptor,
