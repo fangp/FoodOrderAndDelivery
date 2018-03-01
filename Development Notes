@@ -31,5 +31,10 @@ NgModel binds dfferent things in different element ???
 host binding and host listener ??? (solved)
 If I show some local val through angular, and these local vals are bond to outer objects, are there any simple ways to monitor the changes of outer objects except checking it in "DoCheck"??? (2/27/2018)
 
+Feb, 28, 2018
+
+If not specified, the buttons in the form in angular will be defaultly added "submit" type. So if you want to have some functional buttons, set type to "button".
+If you only want to accept one msg throw a obeservable, use "first()" or "take(1)" operators in rxjs.
+
 Future works:
 CSS!!!
