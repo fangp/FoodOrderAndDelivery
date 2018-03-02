@@ -73,7 +73,7 @@ export class OrderService{
   updateHistoryOrder(){
     this.requestHistoryOrders().take(1).subscribe(
       (data)=>{
-        this.CurrentOrders = [];
+        this.HistoryOrders = [];
         for(let ele of data.historyData){
           let status = "finished";
           let tmp: order = {
