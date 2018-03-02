@@ -44,4 +44,6 @@ router.delete('/order/:id', OrderController.delete);
 
 router.put('/order', OrderController.update);
 
+router.get('/history', OrderController.history);
+
 module.exports = router;

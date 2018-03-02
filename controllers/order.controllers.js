@@ -92,24 +92,54 @@ exports.add = function(req, res){
 exports.update = function(req, res){
     let driver;
     let id;
-    try{
-        if(req.decoded){
-            id = req.body.orderId;
-            driver = req.decoded.username;
+    if(req.decoded){
+        id = req.body.orderId;
+        driver = req.decoded.username;
+    }
+    else{
+        return res.status(401).json({status: 401, message: "please log in"});
+    }
+    Order.update({_id:id}, {driver: driver}, function (err, order) {
+        if(err){
+            return res.status(400).json({status: 400, message: err.message});
+        }
+        else
+            return res.status(200).json({status: 200, message: "success"});
+    })
+
+};
+
+exports.history = function (req, res) {
+    let type;
+    if(req.decoded){
+        type = req.decoded.type;
+        if(type == "driver"){
+            History.find({driver: req.decoded.username})
+                .sort({$natural: -1})
+                .limit(10)
+                .exec(function (err, result) {
+                    //console.log(result);
+                    if(err)
+                        return res.status(400).json({status: 400, message: err.message});
+                    else{
+                        return res.status(200).json({status: 200, historyData: result, message: "success"});
+                    }
+                });
         }
         else{
-            return res.status(401).json({status: 401, message: "please log in"});
+            History.find({username: req.decoded.username})
+                .sort({$natural: -1})
+                .limit(10)
+                .exec(function (err, result) {
+                    if(err)
+                        return res.status(400).json({status: 400, message: err.message});
+                    else{
+                        return res.status(200).json({status: 200, historyData: result, message: "success"});
+                    }
+                });
         }
-        Order.update({_id:id}, {driver: driver}, function (err, order) {
-            if(err){
-                return res.status(400).json({status: 400, message: err.message});
-            }
-            else
-                return res.status(200).json({status: 400, message: "success"});
-        })
-    }
-    catch(e){
-        console.log(e);
-    }
 
+    }
+    else
+        return res.status(401).json({status: 401, message: "please log in"});
 };

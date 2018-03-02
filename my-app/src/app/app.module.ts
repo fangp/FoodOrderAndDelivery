@@ -27,6 +27,8 @@ import {DeliveryService} from "./delivery.service";
 import { PickupItemDirective } from './delivery/delivery-status/pickup-item/pickup-item.directive';
 import { PickupItemComponent } from './delivery/delivery-status/pickup-item/pickup-item.component';
 import { ProfileComponent } from './user-module/profile/profile.component';
+import { HistoryComponent } from './history/history.component';
+import { HistoryItemComponent } from './history/history-item/history-item.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
   { path: 'user', redirectTo: '/user/profile', pathMatch: 'full'},
   { path: 'user/login', component: LogInComponent},
   { path: 'user/signup', component: SignUpComponent},
-  { path: 'user/profile', component: ProfileComponent}
+  { path: 'user/profile', component: ProfileComponent},
+  { path: 'history', component: HistoryComponent}
 ];
 
 @NgModule({
@@ -58,7 +61,9 @@ const appRoutes: Routes = [
     DeliveryItemDirective,
     PickupItemDirective,
     PickupItemComponent,
-    ProfileComponent
+    ProfileComponent,
+    HistoryComponent,
+    HistoryItemComponent
   ],
   imports: [
     BrowserModule,

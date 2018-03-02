@@ -11,6 +11,7 @@
         <li *ngIf="LoggedIn&&type=='customer'"><a routerLink="order-status">Order Status</a></li>
         <li *ngIf="LoggedIn&&type=='driver'"><a routerLink="delivery">Delivery</a></li>
         <li *ngIf="LoggedIn&&type=='driver'"><a routerLink="delivery-status">Delivery Status</a></li>
+        <li *ngIf="LoggedIn"><a routerLink="history">History Orders</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="LoggedIn === false"><a routerLink="user/login">log in</a></li>

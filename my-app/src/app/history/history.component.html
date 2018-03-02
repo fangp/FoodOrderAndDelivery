@@ -1,0 +1,17 @@
+<div class="container">
+  <h3 class="text-center">Rencent Orders
+    <button (click)="OnRefresh()"
+            style="background-color: Transparent; border: none"
+            class="glyphicon glyphicon-refresh">
+    </button>
+  </h3>
+  <hr class="col-sm-4 col-centered">
+  <br>
+  <div *ngIf="orders.length==0; else display" class="text-center text-danger">You don't have completed orders</div>
+  <ng-template #display>
+    <ul class="list-inline">
+      <app-history-item *ngFor="let order of orders"
+                        [order]="order"></app-history-item>
+    </ul>
+  </ng-template>
+</div>

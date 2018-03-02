@@ -14,7 +14,7 @@ export class OrderService{
   private HistoryOrders: order[] = [
   ];
 
-  server:string = 'http://localhost:3000/users/order';
+  server:string = 'http://localhost:3000/users/';
 
   constructor(private http: HttpClient)
   {}
@@ -24,10 +24,10 @@ export class OrderService{
     this.HistoryOrders = [];
   }
   requestCurrentOrders():Observable<any>{
-    return this.http.get(this.server);
+    return this.http.get(this.server+'order');
   }
   requestHistoryOrders():Observable<any>{
-    return this.http.get(this.server);
+    return this.http.get(this.server+'history');
   }
   getCurrentOrders(){
     return this.CurrentOrders;
@@ -74,7 +74,7 @@ export class OrderService{
     this.requestHistoryOrders().take(1).subscribe(
       (data)=>{
         this.CurrentOrders = [];
-        for(let ele of data.orderdata){
+        for(let ele of data.historyData){
           let status = "finished";
           let tmp: order = {
             _id: ele._id,
