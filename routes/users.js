@@ -38,7 +38,7 @@ router.get('/order', OrderController.check);
 
 router.post('/order', OrderController.add);
 
-router.delete('/order', OrderController.delete);
+router.delete('/order/:id', OrderController.delete);
 
 router.put('/order', OrderController.update);
 

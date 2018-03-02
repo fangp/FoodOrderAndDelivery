@@ -24,6 +24,8 @@ import {OrderService} from "./order.service";
 import { DeliveryItemComponent } from './delivery/delivery/delivery-item/delivery-item.component';
 import { DeliveryItemDirective } from './delivery/delivery/delivery-item/delivery-item.directive';
 import {DeliveryService} from "./delivery.service";
+import { PickupItemDirective } from './delivery/delivery-status/pickup-item/pickup-item.directive';
+import { PickupItemComponent } from './delivery/delivery-status/pickup-item/pickup-item.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -51,7 +53,9 @@ const appRoutes: Routes = [
     OrderEntryComponent,
     OrderStatusDirective,
     DeliveryItemComponent,
-    DeliveryItemDirective
+    DeliveryItemDirective,
+    PickupItemDirective,
+    PickupItemComponent
   ],
   imports: [
     BrowserModule,

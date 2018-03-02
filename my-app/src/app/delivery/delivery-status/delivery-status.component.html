@@ -1,3 +1,10 @@
-<p>
-  delivery-status works!
-</p>
+<div class="container">
+  <h3 class="text-center">Current Order</h3>
+  <hr>
+  <strong class="text-danger" *ngIf="!Pickedup">You haven't picked up any orders</strong>
+  <div *ngIf="Pickedup">
+    <div class="col-sm-6 col-centered">
+      <app-pickup-item [order]="PickedupOrder"></app-pickup-item>
+    </div>
+  </div>
+</div>

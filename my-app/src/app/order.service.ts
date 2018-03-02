@@ -19,6 +19,10 @@ export class OrderService{
   constructor(private http: HttpClient)
   {}
 
+  clear(){
+    this.CurrentOrders = [];
+    this.HistoryOrders = [];
+  }
   requestCurrentOrders():Observable<any>{
     return this.http.get(this.server);
   }

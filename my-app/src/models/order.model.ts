@@ -5,5 +5,6 @@ export interface order{
   address:string,
   driver?:string,
   contact:string,
-  status?:string
+  status?:string,
+  date?:Date
 }

@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {DeliveryService} from "../../../delivery.service";
 
 @Component({
-  selector: 'app-delivery-item',
-  templateUrl: './delivery-item.component.html',
-  styleUrls: ['./delivery-item.component.css']
+  selector: 'app-pickup-item',
+  templateUrl: './pickup-item.component.html',
+  styleUrls: ['./pickup-item.component.css']
 })
-export class DeliveryItemComponent implements OnInit {
+export class PickupItemComponent implements OnInit {
+
   @Input() order;
   @Input() index;
   scope = this;
@@ -26,11 +27,14 @@ export class DeliveryItemComponent implements OnInit {
     this.selected = false;
   }
   OnClick(){
-    this.DeliveryService.pickupOrder(this.order,  (msg:string)=> {
+    this.DeliveryService.finishOrder((msg:string)=> {
       if(msg == "success")
-        this.router.navigate(["/delivery-status"]);
+        this.router.navigate(["/delivery"]);
       else
         this.WarningMsg = msg;
     });
   }
+  OnInit() {
+  }
+
 }

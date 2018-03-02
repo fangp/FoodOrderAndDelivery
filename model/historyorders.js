@@ -1,6 +1,6 @@
 var mongoose=require('mongoose');
 
-var OrderSchema = new mongoose.Schema({
+var HistoryOrderSchema = new mongoose.Schema({
     description: {type: String, required: true},
     username: {type: String, required: true},
     driver: {type: String},
@@ -9,5 +9,5 @@ var OrderSchema = new mongoose.Schema({
     date: {type: String}
 });
 
-var Order = mongoose.model('Order', OrderSchema);
-module.exports = Order;
+var History = mongoose.model('History', HistoryOrderSchema);
+module.exports = History;

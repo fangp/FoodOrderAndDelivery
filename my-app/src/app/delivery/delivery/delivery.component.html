@@ -13,10 +13,15 @@
     </select>
   </div>
   <hr>
-  <ul class="col-sm-6 col-centered">
-    <app-delivery-item *ngFor="let order of orders; let i = index"
-                       [order] = "order"
-                       [index] = "i"
-    ></app-delivery-item>
-  </ul>
+  <div *ngIf="pickedup; else WarnBlock">
+    <strong class="text-danger">You have picked up an order</strong>
+  </div>
+  <ng-template #WarnBlock>
+    <ul class="col-sm-6 col-centered">
+      <app-delivery-item *ngFor="let order of orders; let i = index"
+                         [order] = "order"
+                         [index] = "i"
+      ></app-delivery-item>
+    </ul>
+  </ng-template>
 </div>

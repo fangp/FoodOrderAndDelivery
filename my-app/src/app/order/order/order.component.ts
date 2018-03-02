@@ -45,6 +45,7 @@ export class OrderComponent implements OnInit {
         return this.WarningMsg = "errors!"
       }
     );
+    this.router.navigate(["order-status"]);
   }
 
   getDefault(){

@@ -4,6 +4,9 @@ import {user} from "../../models/user.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Subscription} from "rxjs/Subscription";
 import "rxjs/add/operator/take"
+import {DeliveryService} from "../delivery.service";
+import {OrderService} from "../order.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav',
@@ -18,6 +21,9 @@ export class NavComponent implements OnInit, DoCheck {
   check: Subscription;
   constructor(private UserService: UserService,
               private user:user,
+              private DeliveryService: DeliveryService,
+              private OrderService: OrderService,
+              private router: Router
               ) {
   }
 
@@ -34,8 +40,8 @@ export class NavComponent implements OnInit, DoCheck {
   }
 
   DataHanlder(data){
-    console.log(data)
-    this.user.update(data.user)
+    console.log(data);
+    this.user.update(data.user);
     this.UserService.UserLogin();
     this.LoggedIn = true;
   }
@@ -62,6 +68,9 @@ export class NavComponent implements OnInit, DoCheck {
     this.username = "";
     this.type = "";
     this.UserService.UserLogout();
+    this.DeliveryService.clear();
+    this.OrderService.clear();
+    this.router.navigate([""]);
   }
 
 }

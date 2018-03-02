@@ -8,16 +8,22 @@ import {Observable} from "rxjs/Observable";
 export class DeliveryService{
   private CurrentOrders: order[] = [];
   private PickedOrder: order;
+  private Pickedup: boolean = false;
 
   server:string = 'http://localhost:3000/users/order';
 
+  clear(){
+    this.CurrentOrders = [];
+    this.PickedOrder = null;
+    this.Pickedup = false;
+  }
   constructor(private http: HttpClient){}
 
   requestCurrentOrders():Observable<any>{
     return this.http.get(this.server);
   }
   requestPickingOrder(orderId: string):Observable<any>{
-    return this.http.put(this.server, orderId);
+    return this.http.put(this.server, {orderId: orderId});
   }
   requestFinishingOrder(orderId: string):Observable<any>{
     return this.http.delete(this.server+"/"+orderId);
@@ -27,6 +33,9 @@ export class DeliveryService{
   }
   getPickedOrder(){
     return this.PickedOrder;
+  }
+  getOrderStatus(){
+    return this.Pickedup;
   }
   updateCurrentOrders(){
     this.requestCurrentOrders().take(1).subscribe(
@@ -44,7 +53,9 @@ export class DeliveryService{
           //console.log(tmp)
           this.CurrentOrders.push(tmp);
         }
-      }
+      },
+      null,
+      ()=>{ return console.log("completion") }
     );
     //console.log(this.CurrentOrders);
   }
@@ -54,6 +65,7 @@ export class DeliveryService{
         let index = this.CurrentOrders.indexOf(order);
         this.PickedOrder = order;
         this.CurrentOrders.splice(index, 1);
+        this.Pickedup = true;
         next("success");
       },
       ()=>{
@@ -66,6 +78,7 @@ export class DeliveryService{
     this.requestFinishingOrder(id).take(1).subscribe(
       ()=>{
         this.PickedOrder = null;
+        this.Pickedup = false;
         next("success");
       },
       ()=>{

@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 export class UserService{
 
   server = 'http://localhost:3000/users'
-  LoggedIn = false
+  LoggedIn = false;
 
   constructor( private http: HttpClient,
                private user: user

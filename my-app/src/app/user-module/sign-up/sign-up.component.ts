@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.user.update(form.value);
     this.signup = this.UserService.signup().subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.DataHandler(data)
       },
       (err) =>{
