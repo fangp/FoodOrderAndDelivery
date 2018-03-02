@@ -22,6 +22,16 @@ export class UserService{
     this.LoggedIn = false;
     this.user.clear();
   }
+  UserProfileUpdate(next){
+    this.update().take(1).subscribe(
+      ()=>{
+        next("update success!");
+      },
+      ()=>{
+        next("error!");
+      }
+    );
+  }
   signup():Observable<any>{
     return this.http.post(this.server + '/signup', this.user.getSignupData())
   }
@@ -33,8 +43,7 @@ export class UserService{
     //console.log(this.user.getUsername())
     return this.http.post(this.server + '/login', this.user.getUserInfo())
   }
-
-  logout():Observable<any>{
-    return this.http.get(this.server + '/logout')
+  update():Observable<any>{
+    return this.http.put(this.server+"/user", this.user.getOrderInfo());
   }
 }

@@ -34,6 +34,8 @@ router.post('/login', UserController.login);
 
 router.get('/check', UserController.check);
 
+router.put('/user', UserController.update);
+
 router.get('/order', OrderController.check);
 
 router.post('/order', OrderController.add);

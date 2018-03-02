@@ -32,8 +32,6 @@ exports.signup = async function(req, res){
         let token_data = {
             username: user.username,
             type: user.type,
-            address: user.address,
-            contact: user.contact
         };
         let token = jwt.sign(token_data, 'a secret', {
             expiresIn: 86400
@@ -57,8 +55,6 @@ exports.login = async function(req, res){
             let token_data = {
                 username: user.username,
                 type: user.type,
-                address: user.address,
-                contact: user.contact
             };
             let token = jwt.sign(token_data, "a secret", {
                 expiresIn: 86400
@@ -75,47 +71,44 @@ exports.login = async function(req, res){
 exports.check = function(req, res){
     console.log("check");
     if(req.decoded){
-        let data = {
-            username: req.decoded.username,
-            type: req.decoded.type,
-            address: req.decoded.address,
-            contact: req.decoded.contact
-        };
-        return res.status(200).json({status: 200, user: data, message:"user has logged in"});
+        let username = req.decoded.username;
+        User.findOne({username: username}, function (err, user) {
+            if(err){
+                return res.status(401).json({status: 401, message:"Invalid token"});
+            }
+            else{
+                let data = {
+                    username: username,
+                    type: req.decoded.type,
+                    address: user.address,
+                    contact: user.contact
+                };
+                return res.status(200).json({status: 200, user: data, message:"user has logged in"});
+            }
+        });
     }
     else
         return res.status(401).json({status: 401, message:"Invalid token"});
 
-    // let token = req.get('x-access-token');
-    // if(token){
-    //     try{
-    //         jwt.verify(token, 'a secret', function(err, decoded){
-    //             if(err)
-    //                 return res.status(401).json({status: 401, message:"Invalid token"});
-    //             else{
-    //                 User.findOne({username: decoded.username}, function(err, user){
-    //                     if(err)
-    //                         return res.status(401).json({status: 401, message:"No such user"});
-    //                     else{
-    //                         let data = {
-    //                             username: user.username,
-    //                             address: user.address,
-    //                             contact: user.contact
-    //                         };
-    //                         return res.status(200).json({status: 200, user: data, message: "user has been logged in"});
-    //                     }
-    //
-    //                 });
-    //             }
-    //         });
-    //     }
-    //     catch(e){
-    //         console.log(e);
-    //     }
-    //
-    // }
-    // else
-    //     return res.status(401).json({status: 401, message:"No token provided"});
+};
+
+exports.update = function (req, res) {
+    if(req.decoded){
+        User.update(
+            {username: req.decoded.username},
+            {
+                address: req.body.address,
+                contact: req.body.contact
+            },
+            function (err) {
+                if(err)
+                    return res.status(401).json({status: 401, message: err.message});
+                else
+                    return res.status(200).json({status: 200, message: "success"});
+            });
+    }
+    else
+        return res.status(401).json({status: 401, message:"Invalid token"});
 };
 
 

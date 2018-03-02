@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <h3 class="text-left">Profile</h3>
+    <hr class="col-sm-4">
+  </div>
+  <div class="text-left text-danger" *ngIf="!isLoggedIn; else display">please log in</div>
+  <ng-template #display>
+    <div class="row">
+      <div class="text-left col-sm-4">
+        <div class="input-group">
+          <span class="input-group-addon">Username</span>
+          <input type="text"
+                 class="col-sm-4 form-control"
+                 placeholder="Username"
+                 [(ngModel)]="username"
+                 disabled
+          >
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Address</span>
+          <input type="text"
+                 class="col-sm-4 form-control"
+                 placeholder="Address"
+                 [(ngModel)]="address"
+                 [disabled]="!isModified"
+          >
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Contact</span>
+          <input type="text"
+                 class="col-sm-4 form-control"
+                 placeholder="Contact"
+                 [(ngModel)]="contact"
+                 [disabled]="!isModified"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="col-sm-4">
+    </div>
+    <div class="text-left text-danger">{{ Msg }}</div>
+    <button class="btn btn-primary" *ngIf="!isModified" (click)="OnUpdate()">update</button>
+    <button class="btn btn-success" *ngIf="isModified" (click)="OnSave()">save</button>
+  </ng-template>
+</div>
