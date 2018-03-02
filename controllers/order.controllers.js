@@ -1,5 +1,5 @@
 let Order = require('../model/orders.js');
-let History = require('../model/historyorders');
+let History = require('../model/historyorders.js');
 
 exports.check = async function(req, res){
     let username;
@@ -46,14 +46,22 @@ exports.delete = function(req, res){
             return res.status(400).json({status: 400, message: "No such order"});
         }
         else{
-            console.log(order);
-            History.create(order, function (err) {
-                console.log(1);
+            let historyorder = {
+                username: order.username,
+                description: order.description,
+                address: order.address,
+                contact: order.contact,
+                date: order.date,
+                driver: order.driver
+            };
+            History.create(historyorder, function (err, result) {
                 if(err){
                     return res.status(400).json({status: 400, message: err.message});
                 }
-                else
+                else{
+                    console.log(result);
                     return res.status(200).json({status: 200, message: "success"});
+                }
             });
         }
     });
