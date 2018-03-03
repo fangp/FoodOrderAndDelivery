@@ -17,10 +17,13 @@ export class ProfileComponent implements OnInit {
   Msg:string = "";
   constructor(private user: user,
               private UserService: UserService) {
+
     this.isLoggedIn = UserService.getStatus();
-    this.username = user.getUsername();
-    this.address = user.getOrderInfo().address;
-    this.contact = user.getOrderInfo().contact;
+    if(this.isLoggedIn){
+      this.username = user.getUsername();
+      this.address = user.getOrderInfo().address;
+      this.contact = user.getOrderInfo().contact;
+    }
   }
 
   ngOnInit() {
