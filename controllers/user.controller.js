@@ -94,6 +94,7 @@ exports.check = function(req, res){
 
 exports.update = function (req, res) {
     if(req.decoded){
+        //console.log(req.body.contact);
         User.update(
             {username: req.decoded.username},
             {

@@ -42,7 +42,7 @@ export class OrderService{
     this.HistoryOrders.push(order);
   }
   placeOrder(Order: order):Observable<any>{
-    return this.http.post(this.server, Order);
+    return this.http.post(this.server+'order', Order);
   }
   updateCurrentOrder(){
     this.requestCurrentOrders().take(1).subscribe(

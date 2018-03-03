@@ -51,8 +51,8 @@ exports.delete = function(req, res){
                 description: order.description,
                 address: order.address,
                 contact: order.contact,
-                date: order.date,
-                driver: order.driver
+                driver: order.driver,
+                'time.finish':new Date()
             };
             History.create(historyorder, function (err, result) {
                 if(err){
@@ -77,7 +77,7 @@ exports.add = function(req, res){
             driver: "",
             address: req.body.address,
             contact: req.body.contact,
-            date: new Date()
+            'time.order': new Date()
         };
     Order.create(userorder, function (err, order) {
         if(err){
@@ -99,7 +99,13 @@ exports.update = function(req, res){
     else{
         return res.status(401).json({status: 401, message: "please log in"});
     }
-    Order.update({_id:id}, {driver: driver}, function (err, order) {
+    Order.update({_id:id}, { $set: {
+                    driver: driver,
+                    'time.pickup' : new Date()
+                }
+                }
+                ,
+                function (err, order) {
         if(err){
             return res.status(400).json({status: 400, message: err.message});
         }

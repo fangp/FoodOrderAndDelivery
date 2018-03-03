@@ -6,7 +6,11 @@ var OrderSchema = new mongoose.Schema({
     driver: {type: String},
     address: {type: String, required: true},
     contact: {type: String, required: true},
-    date: {type: String}
+    time: {
+        order: {type: Date},
+        pickup: {type: Date},
+        finish: {type: Date}
+    }
 });
 
 var Order = mongoose.model('Order', OrderSchema);
